@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
@@ -11,7 +12,6 @@ body {
     background: radial-gradient(circle at top, #1a001f, #000000);
     text-align: center;
     font-family: "Playwrite NZ Basic", cursive;
-    overflow: hidden;
     color: white;
 }
 
@@ -23,10 +23,12 @@ h1 {
     width: 120px;
     position: absolute;
     top: 50%;
-    left: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     cursor: pointer;
     transition: 0.3s;
 }
+
 
 .hidden { display: none; }
 
@@ -63,13 +65,15 @@ button:hover {
 }
 
 .slideshow {
-    width: 220px;
-    height: 220px;
+    width: 80%;
+    max-width: 250px;
+    aspect-ratio: 1 / 1;
     margin: 20px auto;
     border-radius: 20px;
     overflow: hidden;
     box-shadow: 0 0 20px #ff4da6;
 }
+
 
 .slideshow img {
     width: 100%;
@@ -192,8 +196,14 @@ function proposal() {
 
 const canvas = document.getElementById("confetti");
 const ctx = canvas.getContext("2d");
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
 
 let confetti = [];
 
