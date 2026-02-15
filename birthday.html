@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
+<title>Happy Birthday My Love ❤️</title>
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #1a001f, #000000);
+    text-align: center;
+    font-family: "Playwrite NZ Basic", cursive;
+    overflow: hidden;
+    color: white;
+}
+
+h1 {
+    margin-top: 40px;
+}
+
+.gift-box {
+    width: 120px;
+    position: absolute;
+    top: 50%;
+    left: 45%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.hidden { display: none; }
+
+.cake {
+    width: 180px;
+    margin-top: 10px;
+}
+
+#surprise {
+    position: relative;
+    z-index: 2;
+}
+
+.message {
+    font-size: 22px;
+    margin-top: 20px;
+    min-height: 60px;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: 18px;
+    background: #ff4da6;
+    border: none;
+    border-radius: 25px;
+    color: white;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: 0.3s;
+}
+
+button:hover {
+    background: #ff1a8c;
+}
+
+.slideshow {
+    width: 220px;
+    height: 220px;
+    margin: 20px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 20px #ff4da6;
+}
+
+.slideshow img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<h1> Happy Birthday Chella Mova ❤️🎀</h1>
+
+<img src="https://cdn-icons-png.flaticon.com/512/3468/3468377.png"
+     class="gift-box"
+     id="gift">
+
+<div id="surprise" class="hidden">
+
+    <img src="download-removebg-preview.png" class="cake">
+
+    <div class="slideshow">
+        <img id="slide" src="img/kutty pattu.jpeg">
+    </div>
+
+    <div class="message" id="typedText"></div>
+
+    <button onclick="proposal()">Umma vanuma 💋😂?</button>
+</div>
+
+<canvas id="confetti"></canvas>
+
+<audio id="music" src="elliot-james-reay-i-think-they-call-this-love-karaoke-version_8wJaD0Tl.mp3"></audio>
+
+<script>
+const gift = document.getElementById("gift");
+let escapeCount = 0;
+
+document.addEventListener("mousemove", function(e) {
+    const rect = gift.getBoundingClientRect();
+    const distance = Math.hypot(
+        e.clientX - (rect.left + rect.width/2),
+        e.clientY - (rect.top + rect.height/2)
+    );
+
+    if (distance < 100 && escapeCount < 6) {
+        const x = Math.random() * (window.innerWidth - 120);
+        const y = Math.random() * (window.innerHeight - 120);
+        gift.style.left = x + "px";
+        gift.style.top = y + "px";
+        escapeCount++;
+    }
+});
+
+gift.addEventListener("click", function() {
+    if (escapeCount >= 6) {
+        openGift();
+    }
+});
+
+function openGift() {
+    gift.style.display = "none";
+    document.getElementById("surprise").classList.remove("hidden");
+    document.getElementById("music").play();
+    startConfetti();
+    startTyping();
+    startSlideshow();
+}
+
+/* Typing Animation */
+
+const message = "You are the most beautiful part of my life ❤️ I thank God every day for you 💕 Happy Birthday Princess 👑";
+let index = 0;
+
+function startTyping() {
+    const typedText = document.getElementById("typedText");
+    function type() {
+        if (index < message.length) {
+            typedText.innerHTML += message.charAt(index);
+            index++;
+            setTimeout(type, 50);
+        }
+    }
+    type();
+}
+
+/* Slideshow */
+
+const images = [
+    "img/image.jpeg",
+    "img/image1.jpeg",
+    "img/image2.jpeg",
+    "img/image3.jpeg",
+    "img/image4.jpeg",
+    "img/image5.jpeg"
+];
+
+let slideIndex = 0;
+
+function startSlideshow() {
+    setInterval(() => {
+        slideIndex = (slideIndex + 1) % images.length;
+        document.getElementById("slide").src = images[slideIndex];
+    }, 2000);
+}
+
+/* Proposal Button */
+
+function proposal() {
+    alert("Umma 💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋");
+}
+
+/* Confetti */
+
+const canvas = document.getElementById("confetti");
+const ctx = canvas.getContext("2d");
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let confetti = [];
+
+function startConfetti() {
+    for (let i = 0; i < 250; i++) {
+        confetti.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            r: Math.random() * 6 + 2,
+            color: "hsl(" + Math.random() * 360 + ",100%,50%)"
+        });
+    }
+    draw();
+}
+
+function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    confetti.forEach(c => {
+        ctx.beginPath();
+        ctx.fillStyle = c.color;
+        ctx.arc(c.x, c.y, c.r, 0, Math.PI * 2);
+        ctx.fill();
+        c.y += 3;
+        if (c.y > canvas.height) c.y = -10;
+    });
+    requestAnimationFrame(draw);
+}
+</script>
+
+</body>
+</html>
