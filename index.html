@@ -5,7 +5,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Playwrite+NZ+Basic:wght@100..400&display=swap" rel="stylesheet">
-<title>Happy Birthday My Love ❤️</title>
+<title>Open Pane Paru Eruma😂🐂</title>
 <style>
 body {
     margin: 0;
@@ -81,6 +81,13 @@ button:hover {
     object-fit: cover;
 }
 
+.slideshow video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 canvas {
     position: absolute;
     top: 0;
@@ -101,9 +108,11 @@ canvas {
 
     <img src="download-removebg-preview.png" class="cake">
 
-    <div class="slideshow">
-        <img id="slide" src="img/kutty pattu.jpeg">
-    </div>
+<div class="slideshow">
+     <img id="slideImage">
+    <video id="slideVideo" class="hidden" muted></video>
+</div>
+
 
     <div class="message" id="typedText"></div>
 
@@ -146,8 +155,19 @@ function openGift() {
     document.getElementById("music").play();
     startConfetti();
     startTyping();
+
+    const img = document.getElementById("slideImage");
+    const video = document.getElementById("slideVideo");
+
+    // Show first image instantly
+    img.classList.remove("hidden");
+    video.classList.add("hidden");
+    img.src = slides[0].src;
+
+    slideIndex = 0;   // Start from first
     startSlideshow();
 }
+
 
 /* Typing Animation */
 
@@ -168,23 +188,54 @@ function startTyping() {
 
 /* Slideshow */
 
-const images = [
-    "img/image.jpeg",
-    "img/image1.jpeg",
-    "img/image2.jpeg",
-    "img/image3.jpeg",
-    "img/image4.jpeg",
-    "img/image5.jpeg"
+const slides = [
+    { type: "image", src: "img/kutty pattu.jpeg" },
+    { type: "video", src: "img/video6.mp4" },
+    { type: "image", src: "img/image.jpeg" },
+    { type: "video", src: "img/video.mp4" },
+    { type: "image", src: "img/image1.jpeg" },
+    { type: "video", src: "img/video1.mp4" },
+    { type: "image", src: "img/image2.jpeg" },
+    { type: "video", src: "img/video2.mp4" },
+    { type: "image", src: "img/image3.jpeg" },
+    { type: "video", src: "img/video3.mp4" },
+    { type: "image", src: "img/image4.jpeg" },
+    { type: "video", src: "img/video4.mp4" },
+    { type: "image", src: "img/image5.jpeg" },
+    { type: "video", src: "img/video5.mp4" },
 ];
+
 
 let slideIndex = 0;
 
 function startSlideshow() {
+    const img = document.getElementById("slideImage");
+    const video = document.getElementById("slideVideo");
+
     setInterval(() => {
-        slideIndex = (slideIndex + 1) % images.length;
-        document.getElementById("slide").src = images[slideIndex];
-    }, 2000);
+
+        slideIndex++;
+        if (slideIndex >= slides.length) {
+            slideIndex = 0;
+        }
+
+        const current = slides[slideIndex];
+
+        if (current.type === "image") {
+            video.pause();
+            video.classList.add("hidden");
+            img.classList.remove("hidden");
+            img.src = current.src;
+        } else {
+            img.classList.add("hidden");
+            video.classList.remove("hidden");
+            video.src = current.src;
+            video.play();
+        }
+
+    }, 3000);
 }
+
 
 /* Proposal Button */
 
