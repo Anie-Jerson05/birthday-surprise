@@ -94,6 +94,28 @@ canvas {
     left: 0;
     pointer-events: none;
 }
+
+
+#proposalSection {
+    position: relative;
+    z-index: 3;
+    margin-top: 30px;
+}
+
+.video-container {
+    width: 90%;
+    max-width: 500px;
+    margin: auto;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 25px #ff4da6;
+}
+
+.video-container video {
+    width: 100%;
+    height: auto;
+}
+
 </style>
 </head>
 <body>
@@ -118,6 +140,15 @@ canvas {
 
     <button onclick="proposal()">Umma vanuma 💋😂?</button>
 </div>
+
+<div id="proposalSection" class="hidden">
+    <div class="video-container">
+        <video id="proposalVideo" controls playsinline>
+            <source src="img/video.mp4" type="video/mp4">
+        </video>
+    </div>
+</div>
+
 
 <canvas id="confetti"></canvas>
 
@@ -201,7 +232,8 @@ const slides = [
     { type: "video", src: "img/video3.mp4" },
     { type: "image", src: "img/image4.jpeg" },
     { type: "video", src: "img/video4.mp4" },
-    { type: "image", src: "img/image5.jpeg" }
+    { type: "image", src: "img/image5.jpeg" },
+    { type: "video", src: "img/video5.mp4" },
 ];
 
 
@@ -239,8 +271,18 @@ function startSlideshow() {
 /* Proposal Button */
 
 function proposal() {
-    alert("Umma 💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋💋");
+
+    // Hide slideshow section
+    document.getElementById("surprise").classList.add("hidden");
+
+    // Show video section
+    const proposalSection = document.getElementById("proposalSection");
+    proposalSection.classList.remove("hidden");
+
+    // Play video
+    document.getElementById("proposalVideo").play();
 }
+
 
 /* Confetti */
 
@@ -285,4 +327,3 @@ function draw() {
 
 </body>
 </html>
-
